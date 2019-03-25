@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>Google Books Search</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+	<form name="book" method="POST" action="http://localhost:5000/books">
+	
+	<input type="text" id="myText">
+	<button type="button" onclick="fun()">Search</button>
+	<button type="button" onclick="get()">Send</button> 
+	<div id="books"></div>
+	<div id="image"> </div>
+	<input type="submit" value="upload"> 
+	</form>
+	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script>
+		var json;
+		var len;
+		function fun() {
+
+			var term1 = document.getElementById("myText").value;
+			var term = 'java';
+			$.ajax({
+				url: 'https://www.googleapis.com/books/v1/volumes?q=' + term1,
+				success: function (json) {
+					var html = "";
+					var id=1;
+					len = json.items.length;
+					for (i = 0; i < json.items.length; i++) {
+						html+='<br><input name ="link" class="w3-check w3-margin-left w3-margin-right" id="cb_' + id + '" type="checkbox" value="'+json.items[i].volumeInfo.previewLink+'" />';
+						id++;
+						html +='<img class="w3-card-4" src="'+json.items[i].volumeInfo.imageLinks.thumbnail+'" >';
+						html += '<ul class="w3-ul w3-hoverable"><li>' + json.items[i].volumeInfo.title + '</li><li>' + json.items[i].volumeInfo.authors[0] + '</li><li><a target=”_blank” href="' + json.items[i].volumeInfo.previewLink + '">Go to Book Page</a></li></ul>';
+					}
+					document.getElementById("books").innerHTML = html;
+				}
+			});
+		}
+		function get(){
+			for (i = 1; i<=len; i++){
+			if(document.getElementById("cb_"+i).checked)
+			{
+			var cb = document.getElementById("cb_"+i).value;
+			alert(cb);
+			}
+			}
+		}
+		var data = {'bob':'foo','paul':'dog'};
+ $.ajax({
+   url: "http://localhost:5000/books",
+   type: 'POST',
+   contentType:'application/json',
+   data: JSON.stringify(data),
+   dataType:'json'
+ });
+	</script>
+</body>
+</html>

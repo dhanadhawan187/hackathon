@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script type="text/javascript">
+</script>
+<body>
+<form name="my" method="POST" action="http://localhost:5000/validation">
+<div class="w3-container">
+	<input type="text" name="id">
+  <ul class="w3-ul w3-hoverable">
+ 
+    {% for key, value in dic.items() %}
+               <li> <span class="w3-margin-right"><input type="checkbox"  name="link" value={{value}}></span><a href={{value}}>{{value}}</a> </li>
+            </tr>
+          {% endfor %}
+  </ul>
+</div>
+<button onclick="upload()">upload</button>
+</form>
+</body>
+</html>
